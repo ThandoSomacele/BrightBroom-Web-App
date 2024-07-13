@@ -1,35 +1,39 @@
-import { auth } from '@/auth';
+'use client';
+
 import Image from 'next/image';
-// import AccountMenu from '../header/AccountMenu';
-// import React, { Dispatch, SetStateAction, useState } from 'react';
+import AccountMenu from '../header/AccountMenu';
+import React, { useState } from 'react';
+import { Session } from 'next-auth';
 
-export default async function UserAvatar() {
-  // const [displayAccMenu, setDisplayAccMenu] = useState('hidden');
+interface UserAvatarProps {
+  session: Session | null;
+}
 
-  const session = await auth();
-  console.log(session?.user);
+export default function UserAvatar({ session }: UserAvatarProps) {
+  const [displayAccMenu, setDisplayAccMenu] = useState('hidden');
 
   if (!session?.user) return null;
 
-  // const toggleAccMenu = () => {
-  //   if (displayAccMenu === 'block') setDisplayAccMenu('hidden');
-  //   else setDisplayAccMenu('block');
-  // };
+  const toggleAccMenu = () => {
+    setDisplayAccMenu((prev) => (prev === 'block' ? 'hidden' : 'block'));
+  };
 
   return (
     <div>
       <Image
-        src={`${session?.user.image}`}
+        src={
+          session.user.image ?? 'https://source.boringavatars.com/marble/120'
+        }
         alt="User Avatar"
         width={40}
         height={40}
         className="cursor-pointer rounded-full object-cover md:h-12 md:w-12"
-        // onClick={toggleAccMenu}
+        onClick={toggleAccMenu}
       />
-      {/* <AccountMenu
+      <AccountMenu
         displayAccMenu={displayAccMenu}
         setDisplayAccMenu={setDisplayAccMenu}
-      /> */}
+      />
     </div>
   );
 }

@@ -10,7 +10,8 @@ import { useFormState, useFormStatus } from 'react-dom';
 import {
   authenticate,
   handleGoogleSignIn,
-  handlePostmarkSignIn,
+  handleResendSignIn,
+  handleSingOut,
 } from '@/app/lib/actions';
 
 export default function LoginForm() {
@@ -86,12 +87,12 @@ export default function LoginForm() {
         <hr className="w-1/2" />
       </div>
       <SignInGoogle />
-      <div className="seperator my-20 flex items-center">
+      {/* <div className="seperator my-20 flex items-center">
         <hr className="w-1/2" />
         <div className="px-3 text-sm">OR</div>
         <hr className="w-1/2" />
       </div>
-      <SignInPostMark />
+      <SignInResend /> */}
     </div>
   );
 }
@@ -117,42 +118,52 @@ export function SignInGoogle() {
   );
 }
 
-export function SignInPostMark() {
-  const [errorMessageMagicSignin, dispatchMagicSignin] = useFormState(
-    handlePostmarkSignIn,
-    undefined,
-  );
+// export function SignInResend() {
+//   const [errorMessageMagicSignin, dispatchMagicSignin] = useFormState(
+//     handleResendSignIn,
+//     undefined,
+//   );
+//   return (
+//     <form action={dispatchMagicSignin} className="flex-1 space-y-3 ">
+//       <div className="relative">
+//         <input
+//           className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+//           id="email"
+//           type="email"
+//           name="email"
+//           placeholder="Enter your email address"
+//           required
+//         />
+//         <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+//       </div>
+//       <button type="submit" className="btn btn-primary__outlined w-full">
+//         Magic Signin Link
+//         <ArrowRightIcon className="ml-auto h-5 w-5" />
+//       </button>
+//       <div className="flex items-end space-x-1">
+//         <div
+//           className="flex items-end space-x-1"
+//           aria-live="polite"
+//           aria-atomic="true"
+//         >
+//           {errorMessageMagicSignin && (
+//             <>
+//               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+//               <p className="text-sm text-red-500">{errorMessageMagicSignin}</p>
+//             </>
+//           )}
+//         </div>
+//       </div>
+//     </form>
+//   );
+// }
+
+export function SingOut({ style }: { style: string | undefined }) {
   return (
-    <form action={dispatchMagicSignin} className="flex-1 space-y-3 ">
-      <div className="relative">
-        <input
-          className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-          id="email"
-          type="email"
-          name="email"
-          placeholder="Enter your email address"
-          required
-        />
-        <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-      </div>
-      <button type="submit" className="btn btn-primary__outlined w-full">
-        Magic Signin Link
-        <ArrowRightIcon className="ml-auto h-5 w-5" />
+    <form action={handleSingOut}>
+      <button className={style} type="submit">
+        Sign Out
       </button>
-      <div className="flex items-end space-x-1">
-        <div
-          className="flex items-end space-x-1"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {errorMessageMagicSignin && (
-            <>
-              <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-              <p className="text-sm text-red-500">{errorMessageMagicSignin}</p>
-            </>
-          )}
-        </div>
-      </div>
     </form>
   );
 }

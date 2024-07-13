@@ -1,21 +1,23 @@
+generator client {
+  provider        = "prisma-client-js"
+  // previewFeatures = ["driverAdapters"]
+}
 datasource db {
   provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL")
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
 
 model User {
   id            String   @id @default(uuid())
   name          String?
-  contact_number String  @unique
+  contact_number String?  @unique
   email         String   @unique
   emailVerified DateTime? @map("email_verified")
-  password      String
-  image_url     String?
-  address       String
+  password      String?
+  image         String?
+  address       String?
   bookings      Booking[]
 
   accounts      Account[]

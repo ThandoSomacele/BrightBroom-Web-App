@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import { SingOut } from '../login-form';
 
 function AccountMenu({
   displayAccMenu,
@@ -212,14 +213,7 @@ function AccountMenu({
               </li>
 
               <li>
-                <form action="#">
-                  <button
-                    type="submit"
-                    className="w-full rounded-lg px-4 py-2 text-sm font-medium [text-align:_inherit] hover:bg-palettes-primary-98 hover:text-light-primary"
-                  >
-                    Logout
-                  </button>
-                </form>
+                <SingOut style="w-full rounded-lg px-4 py-2 text-sm font-medium [text-align:_inherit] hover:bg-palettes-primary-98 hover:text-light-primary" />
               </li>
             </ul>
           </details>

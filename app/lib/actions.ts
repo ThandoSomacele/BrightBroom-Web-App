@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { signIn } from '@/auth';
+import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 
 // // -------- Create Booking ---------- //
@@ -204,15 +204,19 @@ export async function authenticate(
 }
 
 export async function handleGoogleSignIn() {
-  await signIn('google');
+  await signIn('google', { redirectTo: '/book' });
 }
 
-export async function handlePostmarkSignIn(
+export async function handleSingOut() {
+  await signOut();
+}
+
+export async function handleResendSignIn(
   prevState: string | undefined,
   formData: FormData,
 ) {
   try {
-    await signIn('postmark', formData);
+    await signIn('resend', formData);
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {

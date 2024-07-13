@@ -1,0 +1,29 @@
+services:
+  app:
+    container_name: brightbroom-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+      - /usr/app/.next
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    container_name: brightbroom-db
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

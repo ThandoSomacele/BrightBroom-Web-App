@@ -4,19 +4,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import CtaLinks from '../misc/CtaLinks';
 import clsx from 'clsx';
-import { usePathname, useParams, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import UserAvatar from '@/ui/header/UserAvatar';
-import { Link as ScrollLink, animateScroll } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
+import { useSession } from 'next-auth/react';
 
 // Head Component
 const Header = () => {
-  const [displayMobileNavMenu, setDisplyMobileNavMenu] = useState('hidden');
+  const { data: session, status } = useSession();
+  const [displayMobileNavMenu, setDisplayMobileNavMenu] = useState('hidden');
   const pathname = usePathname();
 
   const toggleMobileNavMenu = () => {
-    if (displayMobileNavMenu === 'flex') setDisplyMobileNavMenu('hidden');
-    else setDisplyMobileNavMenu('flex');
+    setDisplayMobileNavMenu((prev) => (prev === 'flex' ? 'hidden' : 'flex'));
   };
+  console.log('Session Status:', status);
 
   return (
     <>
@@ -162,7 +164,7 @@ const Header = () => {
             </nav>
             <div className="navbar-right flex w-1/4 items-center justify-end gap-3 md:w-2/3 lg:w-1/3">
               <CtaLinks styleClasses="hidden md:flex" />
-              {/* <UserAvatar /> */}
+              <UserAvatar session={session} />
               <>
                 <button
                   className="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"

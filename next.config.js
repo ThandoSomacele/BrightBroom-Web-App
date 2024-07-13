@@ -8,6 +8,10 @@ const nextConfig = {
         hostname: 'flagpack.xyz',
         pathname: '_nuxt',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
     ],
   },
 };

@@ -1,9 +1,11 @@
 import React from 'react';
+import { SessionProvider } from 'next-auth/react';
 import type { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
 import Header from '@/app/ui/main-layout/Header';
 import '@/app/ui/global.css';
 import Footer from '@/app/ui/main-layout/Footer';
+import type { Session } from 'next-auth';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -56,11 +58,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={openSans.className}>
-        <Header />
-        {children}
-        <Footer />
-      </body>
+      <SessionProvider>
+        <body className={openSans.className}>
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </SessionProvider>
     </html>
   );
 }
