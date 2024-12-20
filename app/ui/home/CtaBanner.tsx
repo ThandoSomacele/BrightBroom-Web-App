@@ -1,5 +1,5 @@
 import React from 'react';
-import CtaLinks from '@/app/ui/misc/CtaLinks';
+import CtaLinks from '@/app/ui/elements/CtaLinks';
 
 const CtaBanner = () => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import CtaLinks from '@/app/ui/misc/CtaLinks';
+import CtaLinks from '@/app/ui/elements/CtaLinks';
 
 function Hero() {
   return (

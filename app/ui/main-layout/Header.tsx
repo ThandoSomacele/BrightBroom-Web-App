@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import CtaLinks from '../misc/CtaLinks';
+import CtaLinks from '../elements/CtaLinks';
 import clsx from 'clsx';
 import { usePathname, useParams, useRouter } from 'next/navigation';
 import UserAvatar from '@/ui/header/UserAvatar';
